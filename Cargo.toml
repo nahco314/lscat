@@ -1,0 +1,43 @@
+[package]
+name = "lscat"
+version = "0.1.0"
+edition = "2021"
+repository = "https://github.com/nahco314/lscat"
+
+[profile.release]
+opt-level = "z"
+codegen-units = 1
+debug = false
+strip = true
+lto = "fat"
+panic = "abort"
+
+# The profile that 'cargo dist' will build with
+[profile.dist]
+inherits = "release"
+
+[dependencies]
+anyhow = "1.0.89"
+
+[target.'cfg(unix)'.dependencies]
+shell-words = "1.1.0"
+
+[target.'cfg(windows)'.dependencies]
+winsplit = "0.1.0"
+
+# Config for 'cargo dist'
+[workspace.metadata.dist]
+# The preferred cargo-dist version to use in CI (Cargo.toml SemVer syntax)
+cargo-dist-version = "0.22.1"
+# CI backends to support
+ci = "github"
+# The installers to generate for each app
+installers = ["shell", "powershell"]
+# Target platforms to build apps for (Rust target-triple syntax)
+targets = ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu", "x86_64-unknown-linux-musl", "x86_64-pc-windows-msvc"]
+# Path that installers should place binaries in
+install-path = "CARGO_HOME"
+# Whether to install an updater program
+install-updater = false
+
+build-command = ["make"]
