@@ -43,7 +43,7 @@ fn parse_args() -> Result<AppArgs> {
         }
     }
 
-    let path = path.ok_or(anyhow!("no path specified"))?;
+    let path = path.unwrap_or(PathBuf::from("."));
 
     Ok(AppArgs {
         path,

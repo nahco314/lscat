@@ -39,7 +39,7 @@ cargo install --git https://github.com/nahco314/lscat
 ## Usage
 
 ```bash
-$ lscat .
+$ lscat
 Cargo.lock  Cargo.toml  LICENSE  README.md  src  target
 
 $ lscat ./src/
